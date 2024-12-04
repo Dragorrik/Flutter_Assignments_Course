@@ -1,0 +1,36 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
+void main() async {
+  final response =
+      await http.get(Uri.parse('https://jsonplaceholder.typicode.com/users'));
+
+  if (response.statusCode == 200) {
+    final List<dynamic> jsonList = json.decode(response.body);
+
+    final List<Map<String, dynamic>> users = jsonList.map((user) {
+      return {
+        'id': user['id'],
+        'name': user['name'],
+        'city': user['address']['city'],
+        'company': user['company']['name'],
+      };
+    }).toList();
+
+    print("The converted map:\n");
+    for (var user in users) {
+      print(user);
+    }
+    print('\n');
+
+    print("Some fetched data:\n");
+    for (int i = 0; i < 3; i++) {
+      print(users[i]['id']);
+      print(users[i]['name']);
+      print(users[i]['city']);
+      print('\n');
+    }
+  } else {
+    print('Failed to fetch data');
+  }
+}
