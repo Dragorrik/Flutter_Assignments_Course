@@ -1,0 +1,113 @@
+import 'dart:io';
+
+// Abstract Account Class (Abstraction part)
+abstract class Account {
+    String accountNumber;
+    double _balance;
+
+    Account(this.accountNumber, this._balance);
+
+    void deposit(double amount) {
+        _balance += amount;
+        print("Deposited \$${amount.toStringAsFixed(2)}.");
+    }
+
+    void withdraw(double amount);
+
+    //Encapsulation part
+    double get balance => _balance;
+
+    void checkBalance() {
+        print("Your balance is \$${_balance.toStringAsFixed(2)}");
+    }
+}
+
+// Savings Account Class (Inheritance part)
+class SavingsAccount extends Account {
+    SavingsAccount(String accountNumber, double balance) : super(accountNumber, balance);
+
+    @override
+    void withdraw(double amount) {
+        if (amount > balance) {
+            print("Insufficient funds. Withdrawal failed.");
+        } else {
+            _balance -= amount;
+            print("Withdrawal of \$${amount.toStringAsFixed(2)} successful.");
+        }
+    }
+}
+
+// Current Account Class (Inheritance part)
+class CurrentAccount extends Account {
+    double overdraftLimit = 500.0;
+
+    CurrentAccount(String accountNumber, double balance) : super(accountNumber, balance);
+
+    @override
+    void withdraw(double amount) {
+        if (amount > balance + overdraftLimit) {
+            print("Overdraft limit exceeded. Withdrawal failed.");
+        } else {
+            _balance -= amount;
+            print("Withdrawal of \$${amount.toStringAsFixed(2)} successful.");
+        }
+    }
+}
+
+void main() {
+    print("Welcome to the Simple Bank System!");
+
+    int accountType;
+    while (true) {
+        try {
+            print("Enter account type (1 for Savings Account, 2 for Current Account): ");
+            accountType = int.parse(stdin.readLineSync()!);
+            if (accountType == 1 || accountType == 2)
+                break;
+        } catch (e) {
+            print("Invalid input. Please enter a valid number.");
+        }
+    }
+
+    print("Enter account number: ");
+    String accountNumber = stdin.readLineSync()!;
+
+    print("Enter initial deposit: ");
+    double initialDeposit = double.parse(stdin.readLineSync()!);
+
+    //Polymorphism part
+    Account account;
+    if (accountType == 1) {
+        account = SavingsAccount(accountNumber, initialDeposit);
+        print("Savings Account created successfully.");
+    } else {
+        account = CurrentAccount(accountNumber, initialDeposit);
+        print("Current Account created successfully.");
+    }
+
+    while (true) {
+        print("\nChoose an operation:");
+        print("1. Deposit");
+        print("2. Withdraw");
+        print("3. Check Balance");
+        print("4. Exit");
+
+        int choice = int.parse(stdin.readLineSync()!);
+        if (choice == 1) {
+            print("Enter deposit amount:");
+            double depositAmount = double.parse(stdin.readLineSync()!);
+            account.deposit(depositAmount);
+        } else if (choice == 2) {
+            print("Enter withdrawal amount:");
+            double withdrawalAmount = double.parse(stdin.readLineSync()!);
+            account.withdraw(withdrawalAmount);
+        } else if (choice == 3) {
+            account.checkBalance();
+        } else if (choice == 4) {
+            print("Thank you for using the Simple Bank System. Goodbye!");
+            return;
+        } else {
+            print("Invalid choice. Please try again.");
+        }
+    }
+}
