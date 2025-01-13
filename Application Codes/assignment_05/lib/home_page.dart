@@ -6,45 +6,53 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.only(top: 60, left: 35, right: 35),
+        padding: EdgeInsets.only(
+          top: screenHeight * 0.03,
+          left: screenWidth * 0.08,
+          right: screenWidth * 0.08,
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            //App bar
-            HomePageWidgets.appBarWidget(context),
-            const SizedBox(height: 20),
-            //Title
-            HomePageWidgets.titleWidget(),
-            const SizedBox(height: 20),
-            //Search bar and Filter
-            HomePageWidgets.searchBarFilterWidget(),
-            const SizedBox(height: 35),
-            //Recommended text
+            // App bar
+            HomePageWidgets.appBarWidget(context, screenHeight),
+            SizedBox(height: screenHeight * 0.03),
+            // Title
+            HomePageWidgets.titleWidget(screenHeight),
+            SizedBox(height: screenHeight * 0.03),
+            // Search bar and Filter
+            HomePageWidgets.searchBarFilterWidget(context, screenHeight),
+            SizedBox(height: screenHeight * 0.022),
+            // Recommended text
             Text(
               'Recommended Combo',
               style: TextStyle(
-                fontSize: 20,
+                fontSize: screenHeight * 0.025,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 20),
-            //Recommended combo list
-            HomePageWidgets.recommendedComboListWidget(),
-            const SizedBox(height: 30),
-            //Hottest text
+            SizedBox(height: screenHeight * 0.015),
+            // Recommended combo list
+            HomePageWidgets.recommendedComboListWidget(
+                screenWidth, screenHeight),
+            SizedBox(height: screenHeight * 0.013),
+            // Hottest text
             Text(
               'Hottest',
               style: TextStyle(
-                fontSize: 20,
+                fontSize: screenHeight * 0.025,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 20),
-            //Hottest item list
-            HomePageWidgets.hottestItemListWidget(),
+            SizedBox(height: screenHeight * 0.015),
+            // Hottest item list
+            HomePageWidgets.hottestItemListWidget(screenWidth, screenHeight),
           ],
         ),
       ),

@@ -1,41 +1,43 @@
 import 'package:flutter/material.dart';
 
 class HomePageWidgets {
-  static Widget appBarWidget(BuildContext context) {
+  static Widget appBarWidget(BuildContext context, double screenHeight) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Image.asset('assets/images/menu.png', width: 25, height: 25),
+        Image.asset('assets/images/menu.png',
+            width: screenHeight * 0.03, height: screenHeight * 0.03),
         Column(
           children: [
-            Image.asset('assets/images/basket.png', width: 45, height: 45),
+            Image.asset('assets/images/basket.png',
+                width: screenHeight * 0.06, height: screenHeight * 0.06),
             Text(
               'My Basket',
               style: TextStyle(
-                fontSize: 12,
+                fontSize: screenHeight * 0.015,
               ),
             ),
           ],
-        )
+        ),
       ],
     );
   }
 
-  static Widget titleWidget() {
+  static Widget titleWidget(double screenHeight) {
     return Text.rich(
       TextSpan(
         children: [
           TextSpan(
             text: "Hello Aarik, ",
             style: TextStyle(
-              fontSize: 20,
+              fontSize: screenHeight * 0.025,
               fontWeight: FontWeight.normal,
             ),
           ),
           TextSpan(
             text: "What fruit salad\ncombo do you want today?",
             style: TextStyle(
-              fontSize: 20,
+              fontSize: screenHeight * 0.025,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -44,59 +46,69 @@ class HomePageWidgets {
     );
   }
 
-  static Widget searchBarFilterWidget() {
+  static Widget searchBarFilterWidget(
+      BuildContext context, double screenHeight) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(
           child: Container(
-            height: 70,
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            height: screenHeight * 0.08,
+            padding: EdgeInsets.symmetric(horizontal: screenHeight * 0.02),
             decoration: BoxDecoration(
               color: const Color(0Xffff3f4f9),
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(screenHeight * 0.02),
             ),
             child: Row(
               children: [
-                const Icon(Icons.search, color: Colors.grey, size: 25),
-                const SizedBox(width: 10),
-                const Text('Search for fruit salad combos',
-                    style: TextStyle(fontSize: 15, color: Colors.grey)),
+                const Icon(Icons.search, color: Colors.grey),
+                SizedBox(width: screenHeight * 0.015),
+                Text(
+                  'Search for fruit salad combos',
+                  style: TextStyle(
+                      fontSize: screenHeight * 0.018, color: Colors.grey),
+                ),
               ],
             ),
           ),
         ),
-        const SizedBox(width: 20),
-        Image.asset('assets/images/filter.png', width: 25, height: 25),
+        SizedBox(width: screenHeight * 0.02),
+        Image.asset('assets/images/filter.png',
+            width: screenHeight * 0.03, height: screenHeight * 0.03),
       ],
     );
   }
 
-  static Widget recommendedComboListWidget() {
+  static Widget recommendedComboListWidget(
+      double screenWidth, double screenHeight) {
     return SizedBox(
-      height: 225,
+      height: screenHeight * 0.285,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: 5,
         itemBuilder: (context, index) {
           return Padding(
-            padding:
-                const EdgeInsets.only(right: 20, left: 5, top: 5, bottom: 5),
+            padding: EdgeInsets.only(
+              right: screenWidth * 0.05,
+              left: screenWidth * 0.01,
+              top: screenHeight * 0.01,
+              bottom: screenHeight * 0.012,
+            ),
             child: Stack(
               children: [
-                // Main Container
                 Container(
-                  height: 215,
-                  width: 185,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                  height: screenHeight * 0.28,
+                  width: screenWidth * 0.47,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: screenWidth * 0.05,
+                    vertical: screenHeight * 0.02,
+                  ),
                   decoration: BoxDecoration(
                     color: const Color(0XffF3F4F9),
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(screenHeight * 0.02),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.grey.withOpacity(0.3),
-                        //spreadRadius: 1,
                         blurRadius: 10,
                         offset: const Offset(3, 4),
                       ),
@@ -105,60 +117,61 @@ class HomePageWidgets {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Image
                       Center(
                         child: Image.asset(
                           'assets/images/recommended.png',
-                          width: 100,
-                          height: 100,
+                          width: screenWidth * 0.25,
+                          height: screenHeight * 0.15,
                         ),
                       ),
-                      const SizedBox(height: 10),
-                      const Text(
+                      SizedBox(height: screenHeight * 0.001),
+                      Text(
                         'Honey lime combo',
                         style: TextStyle(
-                          fontSize: 15,
+                          fontSize: screenHeight * 0.02,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const SizedBox(height: 10),
+                      SizedBox(height: screenHeight * 0.005),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
+                          Text(
                             '2,000',
                             style: TextStyle(
-                              fontSize: 15,
+                              fontSize: screenHeight * 0.02,
                               color: Colors.deepOrange,
                             ),
                           ),
                           Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 5),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: screenWidth * 0.03,
+                              vertical: screenHeight * 0.005,
+                            ),
                             decoration: BoxDecoration(
                               color: const Color.fromARGB(255, 241, 227, 206),
-                              borderRadius: BorderRadius.circular(20),
+                              borderRadius:
+                                  BorderRadius.circular(screenHeight * 0.02),
                             ),
-                            child: const Text(
+                            child: Text(
                               '+',
                               style: TextStyle(
-                                fontSize: 15,
+                                fontSize: screenHeight * 0.02,
                                 color: Colors.deepOrange,
                               ),
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ],
                   ),
                 ),
-                // Heart Icon
                 Positioned(
-                  top: 15,
-                  right: 15,
-                  child: const Icon(
+                  top: screenHeight * 0.02,
+                  right: screenWidth * 0.03,
+                  child: Icon(
                     Icons.favorite_border,
-                    size: 22,
+                    size: screenHeight * 0.03,
                     color: Colors.orange,
                   ),
                 ),
@@ -170,30 +183,33 @@ class HomePageWidgets {
     );
   }
 
-  static Widget hottestItemListWidget() {
+  static Widget hottestItemListWidget(double screenWidth, double screenHeight) {
     return SizedBox(
-      height: 200,
+      height: screenHeight * 0.235,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: 5,
         itemBuilder: (context, index) {
           return Padding(
-            padding: const EdgeInsets.only(right: 20),
+            padding: EdgeInsets.only(
+              right: screenWidth * 0.05,
+              //left: screenWidth * 0.05,
+            ),
             child: Stack(
               children: [
-                // Main Container
                 Container(
-                  height: 195,
-                  width: 185,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                  height: screenHeight * 0.223,
+                  width: screenWidth * 0.47,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: screenWidth * 0.05,
+                    vertical: screenHeight * 0.02,
+                  ),
                   decoration: BoxDecoration(
                     color: const Color(0XFFFFFAEB),
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(screenHeight * 0.02),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.grey.withOpacity(0.3),
-                        //spreadRadius: 1,
                         blurRadius: 10,
                         offset: const Offset(3, 4),
                       ),
@@ -202,60 +218,61 @@ class HomePageWidgets {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Image
                       Center(
                         child: Image.asset(
                           'assets/images/recommended.png',
-                          width: 80,
-                          height: 80,
+                          width: screenWidth * 0.2,
+                          height: screenHeight * 0.12,
                         ),
                       ),
-                      const SizedBox(height: 10),
-                      const Text(
+                      //SizedBox(height: screenHeight * 0.0005),
+                      Text(
                         'Honey lime combo',
                         style: TextStyle(
-                          fontSize: 15,
+                          fontSize: screenHeight * 0.018,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const SizedBox(height: 10),
+                      SizedBox(height: screenHeight * 0.001),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
+                          Text(
                             '2,000',
                             style: TextStyle(
-                              fontSize: 15,
+                              fontSize: screenHeight * 0.018,
                               color: Colors.deepOrange,
                             ),
                           ),
                           Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 5),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: screenWidth * 0.03,
+                              vertical: screenHeight * 0.005,
+                            ),
                             decoration: BoxDecoration(
                               color: const Color.fromARGB(255, 255, 229, 189),
-                              borderRadius: BorderRadius.circular(20),
+                              borderRadius:
+                                  BorderRadius.circular(screenHeight * 0.02),
                             ),
-                            child: const Text(
+                            child: Text(
                               '+',
                               style: TextStyle(
-                                fontSize: 15,
+                                fontSize: screenHeight * 0.018,
                                 color: Colors.deepOrange,
                               ),
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ],
                   ),
                 ),
-                // Heart Icon
                 Positioned(
-                  top: 15,
-                  right: 15,
-                  child: const Icon(
+                  top: screenHeight * 0.02,
+                  right: screenWidth * 0.03,
+                  child: Icon(
                     Icons.favorite_border,
-                    size: 22,
+                    size: screenHeight * 0.03,
                     color: Colors.orange,
                   ),
                 ),
